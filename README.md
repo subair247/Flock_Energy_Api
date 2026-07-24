@@ -49,4 +49,4 @@ pip install -r requirements.txt
 
 uvicorn app.main:app --reload --port 8000
 
-The API will now be running locally at http://localhost:8000. You can access the interactive Swagger documentation UI directly at http://localhost:8000/docs    ..... this is my updated readme file. it is perfect?
+The API will now be running locally at http://localhost:8000. You can access the interactive Swagger documentation UI directly at http://localhost:8000/docs
