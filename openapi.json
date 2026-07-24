@@ -1,0 +1,147 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Flock Energy - Urja Meter Ops API",
+    "description": "Clean REST API proxy wrapper over the legacy Urja Meter Ops portal.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/meters/{meter_id}": {
+      "get": {
+        "summary": "Get Meter",
+        "operationId": "get_meter_api_v1_meters__meter_id__get",
+        "parameters": [
+          {
+            "name": "meter_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Meter Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeterResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MeterResponse": {
+        "properties": {
+          "meter_id": {
+            "type": "string",
+            "description": "Unique internal identifier of the meter",
+            "title": "Meter Id"
+          },
+          "serial_number": {
+            "type": "string",
+            "description": "Physical serial number of the smart meter",
+            "title": "Serial Number"
+          },
+          "status": {
+            "type": "string",
+            "description": "Operational status (e.g., ACTIVE, INACTIVE)",
+            "title": "Status"
+          },
+          "location": {
+            "type": "string",
+            "description": "Network node location hierarchy string",
+            "title": "Location"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meter_id",
+          "serial_number",
+          "status",
+          "location"
+        ],
+        "title": "MeterResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
